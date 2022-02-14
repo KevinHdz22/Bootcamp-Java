@@ -18,53 +18,89 @@ import java.util.Scanner;
 public class ValidarFecha {
 	
 	public static void main (String[]args) {
-		//Array para guardar la fecha dividida
-		String[] FechaDividida;
-		int day = 0;
-		int month = 0;
-		int year = 0;
 		
+		//Bandera para llevar control del ciclo while
+		int bandera = 0;
 		
-		Scanner lectura = new Scanner (System.in);
-		System.out.println("Ingrese la fecha en el formato dd/mm/yyyy : ");
+		while (bandera == 0) {
+			//Array para guardar la fecha dividida
+			String[] FechaDividida;
+			int day = 0;
+			int month = 0;
+			int year = 0;
+			
+			
+			Scanner lectura = new Scanner (System.in);
+			System.out.println("Ingrese la fecha en el formato dd/mm/yyyy : ");
+			
+			//Leer datos ingresados por teclado
+			String fecha = lectura.next();
+			System.out.println("La fecha ingresada es: " + fecha);
+			
+			//System.out.println (ValidarDatos (fecha));
+			
+			//Dividir la fecha usando metodo DividirFecha y guardar en un arreglo tipo String
+			FechaDividida= DividirFecha(fecha);
+			
+			//Usar la clase StringBuffer para almacenar la fecha
+			StringBuffer AuxiliarFecha = new StringBuffer ();
 		
-		//Leer datos ingresados por teclado
-		String fecha = lectura.next();
-		System.out.println("La fecha ingresada es: " + fecha);
-		
-		//Dividir la fecha en un arreglo tipo String
-		FechaDividida= DividirFecha(fecha);
-		
-		/*
-		for (int i=0; i<FechaDividida.length; i++){
-            System.out.println(FechaDividida[i]);
+			
+			//Ciclo para recorrer el array FechaDividida y añadir cada valor en AuxiliarFecha
+			for (int i=0; i<FechaDividida.length; i++){
+	           AuxiliarFecha = AuxiliarFecha.append(FechaDividida[i]);
+			}
+			//Crear String FechaUnida asignar valor convertido de AuxiliarFecha
+			String FechaUnida = AuxiliarFecha.toString();
+			//System.out.println("Valor de FechaUnida: " + FechaUnida);
+			
+			//System.out.println (ValidarDatos (FechaUnida));
+			
+			//Condicion para validar que no se ingresaron letras (usando metodo ValidarDatos)
+			if (ValidarDatos (FechaUnida) == false) {
+				System.out.println("Fecha incorrecta, Ingrese una fecha valida (numeros) ");
+			}else {
+				/*
+				for (int i=0; i<FechaDividida.length; i++){
+		            System.out.println(FechaDividida[i]);
+				}
+				*/
+				
+				//Asignar datos del arreglo a variables tipo int (usando metodo AsignarDatos)
+				 day = AsignarDatos(FechaDividida, day, 0);
+				 month = AsignarDatos(FechaDividida, month, 1);
+				 year = AsignarDatos(FechaDividida, year, 2);
+				 
+				 //variable para control del total de dias por mes
+				 int dayCheck = 0;
+				 //Asignar valor a dayCheck segun el mes y año para el caso bisiesto
+				 dayCheck = DefinirDiasPorMes (dayCheck, month, year );
+				 /*
+				 System.out.println("dia: " + day);
+				 System.out.println("Mes: " + month);
+				 System.out.println("Año: " + year);
+				 */
+				 
+				 //Validar Fecha ingresada por el usuario usando los metodos validarDias, validarMeses y validarYears
+				 if ((validarDias(day, dayCheck) == true) && validarMeses(month) == true && validarYears(year) == true) {
+					 System.out.println("Fecha correcta");
+					 bandera = 1;
+				 }else {
+					 System.out.println("Fecha Incorrecta");
+				 }
+			}
+			
 		}
-		
-		 System.out.println(FechaDividida[2]);
-		 */
-		
-		//Asignar datos del arreglo a variables tipo int (usando metodo AsignarDatos)
-		 day = AsignarDatos(FechaDividida, day, 0);
-		 month = AsignarDatos(FechaDividida, month, 1);
-		 year = AsignarDatos(FechaDividida, year, 2);
-		 
-		 //variable para control del total de dias por mes
-		 int dayCheck = 0;
-		 //Asignar valor a dayCheck segun el mes y año para el caso bisiesto
-		 dayCheck = DefinirDiasPorMes (dayCheck, month, year );
-		 
-		 /*
-		 System.out.println("dia: " + day);
-		 System.out.println("Mes: " + month);
-		 System.out.println("Año: " + year);
-		 */
-		 
-		 //Validar Fecha ingresada por el usuario usando los metodos validarDias, validarMeses y validarYears
-		 if ((validarDias(day, dayCheck) == true) && validarMeses(month) == true && validarYears(year) == true) {
-			 System.out.println("Fecha correcta");
-		 }else {
-			 System.out.println("Fecha Incorrecta");
-		 }	 
+	}
+	//Metodo para validar caracteres ingresado por teclado
+	public static boolean ValidarDatos(String FechaUnida) {
+		boolean EstadoDatos = true;
+		for (int i = 0; i < FechaUnida.length(); i++) {
+			if (!Character.isDigit(FechaUnida.charAt(i))) {
+				EstadoDatos = false;
+			}
+		}
+		return EstadoDatos;
 	}
 	
 	//Metodo para Dividir la fecha (estado: String)
@@ -120,6 +156,7 @@ public class ValidarFecha {
 		if (day>=1 && day<=dayCheck){
 			return true;
 		}
+		//System.out.println("Dia inexistente");
 		return false;
 	}
 	
@@ -129,6 +166,7 @@ public class ValidarFecha {
 		if (month >= 1 && month <= 12) {
 			return true;
 		}
+		//System.out.println("Mes inexistente");
 		return false;
 	}
 	
@@ -138,6 +176,7 @@ public class ValidarFecha {
 		if (year >= 1900 && year <= 2099) {
 			return true;
 		}
+		//System.out.println("Año fuera del rango");
 		return false;
 	}
 }
