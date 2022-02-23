@@ -27,7 +27,13 @@ public class Main {
 			String nombre = lectura.next();
 			System.out.println("Ingrese el Apellido del estudiante: \n");
 			String apellido = lectura.next();
-			
+			//nombre = "";
+			while (validarCadenaTexto(nombre, apellido) == true) {
+				System.out.println("Ingrese el nombre del estudiante: \n");
+				nombre = lectura.next();
+				System.out.println("Ingrese el Apellido del estudiante: \n");
+				apellido = lectura.next();
+			}
 			if (validarLista(nombre, apellido, alumnoList)==false) {
 				
 				
@@ -89,6 +95,19 @@ public class Main {
 		
 
 	}
+	public static boolean validarCadenaTexto(String nombre, String apellido) {
+		boolean validarCadena = false;
+		if (nombre.isEmpty() || nombre == null) {
+			System.out.println("Debe ingresar un nombre: ");
+			validarCadena = true;
+		}
+		if (apellido.isEmpty() || apellido == null) {
+			System.out.println("Debe ingresar un Apellido: ");
+			validarCadena = true;
+		}
+		return validarCadena;
+	}
+	
 	public static boolean validarNumExamen(String nombre, String apellido, ArrayList<Integer> numExamen, ArrayList<Alumno> alumnoList) {
 		boolean validarNumExamen = false;
 		for (int i = 0; i < alumnoList.size(); i++) {
