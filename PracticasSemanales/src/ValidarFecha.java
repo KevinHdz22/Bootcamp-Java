@@ -42,7 +42,7 @@ public class ValidarFecha {
 			//Dividir la fecha usando metodo DividirFecha y guardar en un arreglo tipo String
 			FechaDividida= DividirFecha(fecha);
 			
-			//Usar la clase StringBuffer para almacenar la fecha
+			//Usar la clase StringBuffer para almacenar fecha
 			StringBuffer AuxiliarFecha = new StringBuffer ();
 		
 			
@@ -50,11 +50,9 @@ public class ValidarFecha {
 			for (int i=0; i<FechaDividida.length; i++){
 	           AuxiliarFecha = AuxiliarFecha.append(FechaDividida[i]);
 			}
-			//Crear String FechaUnida asignar valor convertido de AuxiliarFecha
+			//Crear String FechaUnida para asignar el valor convertido de AuxiliarFecha
 			String FechaUnida = AuxiliarFecha.toString();
 			//System.out.println("Valor de FechaUnida: " + FechaUnida);
-			
-			//System.out.println (ValidarDatos (FechaUnida));
 			
 			//Condicion para validar que no se ingresaron letras (usando metodo ValidarDatos)
 			if (ValidarDatos (FechaUnida) == false) {
@@ -118,7 +116,7 @@ public class ValidarFecha {
 		return date;
 	}
 	
-	//Definir dias segun sea el mes (28-30-31)
+	//Definir dias segun sea el mes (28-30-31) y año para saber si es bisiesto
 	public static int DefinirDiasPorMes(int dayCheck, int month, int year) {
 			if (month == 1) {
 				dayCheck= 31;
