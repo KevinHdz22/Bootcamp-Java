@@ -27,8 +27,6 @@ public class Alumno {
 	private String apellido;
 	private ArrayList<Integer>listNumExamen = new ArrayList<Integer>();
 	private ArrayList<Integer>listNotaExamen = new ArrayList<Integer>();
-	//ArrayList<Alumno>alumnoList = new ArrayList<Alumno>();
-	//private int notaExamen[] = new int [20];
 	//metodo Constuctor
 	public Alumno(String nombre, String apellido,  ArrayList<Integer> listNumExamen,  ArrayList<Integer> listNotaExamen) {
 		this.setNombre(nombre);
