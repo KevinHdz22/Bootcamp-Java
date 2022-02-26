@@ -245,7 +245,7 @@ public class Main {
 	public static ArrayList<Alumno> alumnosAprobados(ArrayList<Alumno> alumnoList){
 		ArrayList<Alumno>listEstudAprobados = new ArrayList<Alumno>();
 		for (int i = 0; i < alumnoList.size(); i++) {
-			Integer promedio = promedioNotas (alumnoList, i);
+			Double promedio = promedioNotas (alumnoList, i);
 			if (promedio >= 7) {
 				listEstudAprobados.add(alumnoList.get(i));
 			}
@@ -256,7 +256,7 @@ public class Main {
 	public static ArrayList<Alumno> alumnosDesaprobados(ArrayList<Alumno> alumnoList){
 		ArrayList<Alumno>listEstudDesaprobados = new ArrayList<Alumno>();
 		for (int i = 0; i < alumnoList.size(); i++) {
-			Integer promedio = promedioNotas (alumnoList, i);
+			Double promedio = promedioNotas (alumnoList, i);
 			if (promedio >= 0 && promedio < 7) {
 				listEstudDesaprobados.add(alumnoList.get(i));
 			}
@@ -266,12 +266,12 @@ public class Main {
 	
 	//METODO PARA OBTENER EL PROMEDIO DE UN DETERMINADO NUMERO DE NOTAS
 	//SE INGRESA i AL METODO PARA SABER LA POSICION DE UN ALUMNO Y ASI USAR SU INFORMACION
-	public static Integer promedioNotas(ArrayList<Alumno> alumnoList, Integer i){
+	public static Double promedioNotas(ArrayList<Alumno> alumnoList, Integer i){
 		//Lista para usar dentro del metodo y almacenar las notas del alumno
 		ArrayList<Integer>listNotasAux = new ArrayList<Integer>();
 		//Variable para almacenar suma de los valores de las notas
-		Integer auxValAcumul = 0;
-		Integer auxValPromedio = 0;
+		Double auxValAcumul = 0.0;
+		Double auxValPromedio = 0.0;
 		//Se asigna a la lista Auxiliar las notas del alumno en la posicion i 
 		listNotasAux = alumnoList.get(i).getNotaExamen();
 		//Ciclo que recorre la lista auxiliar anteriormente llenada
