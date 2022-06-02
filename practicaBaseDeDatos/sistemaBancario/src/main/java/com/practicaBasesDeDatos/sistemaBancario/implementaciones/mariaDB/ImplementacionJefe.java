@@ -6,22 +6,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.practicaBasesDeDatos.sistemaBancario.entidades.Cliente;
+import com.practicaBasesDeDatos.sistemaBancario.entidades.Jefe;
 import com.practicaBasesDeDatos.sistemaBancario.interfaces.ConexionMariaDB;
 import com.practicaBasesDeDatos.sistemaBancario.interfaces.DAO;
 
-public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMariaDB {
+public class ImplementacionJefe implements DAO<Jefe, Integer>, ConexionMariaDB {
 
 	private PreparedStatement preparedStatementBuscarPorID;
 	private PreparedStatement preparedStatementEliminar;
 	private PreparedStatement preparedStatementModificar;
 	private PreparedStatement preparedStatementInsertar;
 	private PreparedStatement preparedStatementListar;
-	
+
 	@Override
-	public Cliente buscarPorId(Integer id) {
-		Cliente cliente = null;
-		String sql = "select nombre, calle, ciudad, id_empleado from clientes where id = ?";
+	public Jefe buscarPorId(Integer id) {
+		Jefe jefe = null;
+		String sql = "select nombreSubordinado from jefes where id = ?";
 		try {
 			if (preparedStatementBuscarPorID == null) {
 				preparedStatementBuscarPorID = getConexion().prepareStatement(sql);
@@ -31,39 +31,33 @@ public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMar
 			ResultSet resultSet = preparedStatementBuscarPorID.executeQuery();
 
 			if (resultSet.next()) {
-				cliente = new Cliente();
-				cliente.setId(id);
-				cliente.setNombre(resultSet.getString("nombre"));
-				cliente.setCalle(resultSet.getString("calle"));
-				cliente.setCiudad(resultSet.getString("ciudad"));
-				cliente.setIdEmpleado(resultSet.getInt("id_empleado"));
+				jefe = new Jefe();
+				jefe.setId(id);
+				jefe.setNombreSubordinado(resultSet.getString("nombreSubordinado"));
 			}
 
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
-		return cliente;
+		return jefe;
 	}
 
 	@Override
-	public boolean insertar(Cliente cliente) {
+	public boolean insertar(Jefe jefe) {
 		// Evitar java.lang.NullPointerException
-		if (cliente == null) {
+		if (jefe == null) {
 			return false;
 		}
 
-		String sql = "insert into clientes (id, nombre, calle, ciudad, id_empleado) values (?,?,?,?,?)";
+		String sql = "insert into jefes (id, nombreSubordinado) values (?,?)";
 		try {
 			if (preparedStatementInsertar == null) {
 				preparedStatementInsertar = getConexion().prepareStatement(sql);
 			}
 
-			preparedStatementInsertar.setInt(1, cliente.getId());
-			preparedStatementInsertar.setString(2, cliente.getNombre());
-			preparedStatementInsertar.setString(3, cliente.getCalle());
-			preparedStatementInsertar.setString(4, cliente.getCiudad());
-			preparedStatementInsertar.setInt(5, cliente.getIdEmpleado());
+			preparedStatementInsertar.setInt(1, jefe.getId());
+			preparedStatementInsertar.setString(2, jefe.getNombreSubordinado());
 
 			return preparedStatementInsertar.executeUpdate() == 1;
 
@@ -74,22 +68,19 @@ public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMar
 	}
 
 	@Override
-	public boolean modificar(Cliente cliente) {
+	public boolean modificar(Jefe jefe) {
 		// Evitar java.lang.NullPointerException
-		if (cliente == null) {
+		if (jefe == null) {
 			return false;
 		}
 
-		String sql = "update clientes set nombre = ?, calle = ?, ciudad = ?, id_empleado = ? where id = ?";
+		String sql = "update jefes set nombreSubordinado = ? where id = ?";
 		try {
 			if (preparedStatementModificar == null) {
 				preparedStatementModificar = getConexion().prepareStatement(sql);
 			}
-			preparedStatementModificar.setString(1, cliente.getNombre());
-			preparedStatementModificar.setString(2, cliente.getCalle());
-			preparedStatementModificar.setString(3, cliente.getCiudad());
-			preparedStatementModificar.setInt(4, cliente.getIdEmpleado());
-			preparedStatementModificar.setInt(5, cliente.getId());
+			preparedStatementModificar.setString(1, jefe.getNombreSubordinado());
+			preparedStatementModificar.setInt(2, jefe.getId());
 
 			return preparedStatementModificar.executeUpdate() == 1;
 
@@ -100,18 +91,18 @@ public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMar
 	}
 
 	@Override
-	public boolean eliminar(Cliente cliente) {
+	public boolean eliminar(Jefe jefe) {
 		// Evitar java.lang.NullPointerException
-		if (cliente == null) {
+		if (jefe == null) {
 			return false;
 		}
 
-		String sql = "delete from clientes where id = ?";
+		String sql = "delete from jefes where id = ?";
 		try {
 			if (preparedStatementEliminar == null) {
 				preparedStatementEliminar = getConexion().prepareStatement(sql);
 			}
-			preparedStatementEliminar.setInt(1, cliente.getId());
+			preparedStatementEliminar.setInt(1, jefe.getId());
 
 			return preparedStatementEliminar.executeUpdate() == 1;
 
@@ -122,9 +113,9 @@ public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMar
 	}
 
 	@Override
-	public List<Cliente> listar() {
-		List<Cliente> clientes = new ArrayList<Cliente>();
-		String sql = "select id, nombre, calle, ciudad, id_empleado from clientes";
+	public List<Jefe> listar() {
+		List<Jefe> jefes = new ArrayList<Jefe>();
+		String sql = "select id, nombreSubordinado from jefes";
 		try {
 			if (preparedStatementListar == null) {
 				preparedStatementListar = getConexion().prepareStatement(sql);
@@ -133,20 +124,16 @@ public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMar
 			ResultSet resultSet = preparedStatementListar.executeQuery();
 			
 			while(resultSet.next()) {
-				Cliente cliente = new Cliente();
-				cliente.setId(resultSet.getInt("id"));
-				cliente.setNombre(resultSet.getString("nombre"));
-				cliente.setCalle(resultSet.getString("calle"));
-				cliente.setCiudad(resultSet.getString("ciudad"));
-				cliente.setIdEmpleado(resultSet.getInt("id_empleado"));
-				clientes.add(cliente);
+				Jefe jefe = new Jefe();
+				jefe.setId(resultSet.getInt("id"));
+				jefe.setNombreSubordinado(resultSet.getString("nombreSubordinado"));
+				jefes.add(jefe);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return clientes;
-	
+		return jefes;
 	}
 
 }

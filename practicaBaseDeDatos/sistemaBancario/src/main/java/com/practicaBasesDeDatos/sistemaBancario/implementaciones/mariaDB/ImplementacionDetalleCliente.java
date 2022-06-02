@@ -6,22 +6,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.practicaBasesDeDatos.sistemaBancario.entidades.Cliente;
+import com.practicaBasesDeDatos.sistemaBancario.entidades.DetalleCliente;
 import com.practicaBasesDeDatos.sistemaBancario.interfaces.ConexionMariaDB;
 import com.practicaBasesDeDatos.sistemaBancario.interfaces.DAO;
 
-public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMariaDB {
+public class ImplementacionDetalleCliente implements DAO<DetalleCliente, Integer>, ConexionMariaDB {
 
 	private PreparedStatement preparedStatementBuscarPorID;
 	private PreparedStatement preparedStatementEliminar;
 	private PreparedStatement preparedStatementModificar;
 	private PreparedStatement preparedStatementInsertar;
 	private PreparedStatement preparedStatementListar;
-	
+
 	@Override
-	public Cliente buscarPorId(Integer id) {
-		Cliente cliente = null;
-		String sql = "select nombre, calle, ciudad, id_empleado from clientes where id = ?";
+	public DetalleCliente buscarPorId(Integer id) {
+		DetalleCliente detalleCliente = null;
+		String sql = "select id_cliente from detalle_clientes where id_cuenta = ?";
 		try {
 			if (preparedStatementBuscarPorID == null) {
 				preparedStatementBuscarPorID = getConexion().prepareStatement(sql);
@@ -31,39 +31,33 @@ public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMar
 			ResultSet resultSet = preparedStatementBuscarPorID.executeQuery();
 
 			if (resultSet.next()) {
-				cliente = new Cliente();
-				cliente.setId(id);
-				cliente.setNombre(resultSet.getString("nombre"));
-				cliente.setCalle(resultSet.getString("calle"));
-				cliente.setCiudad(resultSet.getString("ciudad"));
-				cliente.setIdEmpleado(resultSet.getInt("id_empleado"));
+				detalleCliente = new DetalleCliente();
+				detalleCliente.setIdCuenta(id);
+				detalleCliente.setIdCliente(resultSet.getInt("id_cliente"));
 			}
 
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
-		return cliente;
+		return detalleCliente;
 	}
 
 	@Override
-	public boolean insertar(Cliente cliente) {
+	public boolean insertar(DetalleCliente detalleCliente) {
 		// Evitar java.lang.NullPointerException
-		if (cliente == null) {
+		if (detalleCliente == null) {
 			return false;
 		}
 
-		String sql = "insert into clientes (id, nombre, calle, ciudad, id_empleado) values (?,?,?,?,?)";
+		String sql = "insert into detalle_clientes (id_cliente, id_cuenta) values (?,?)";
 		try {
 			if (preparedStatementInsertar == null) {
 				preparedStatementInsertar = getConexion().prepareStatement(sql);
 			}
 
-			preparedStatementInsertar.setInt(1, cliente.getId());
-			preparedStatementInsertar.setString(2, cliente.getNombre());
-			preparedStatementInsertar.setString(3, cliente.getCalle());
-			preparedStatementInsertar.setString(4, cliente.getCiudad());
-			preparedStatementInsertar.setInt(5, cliente.getIdEmpleado());
+			preparedStatementInsertar.setInt(1, detalleCliente.getIdCliente());
+			preparedStatementInsertar.setInt(2, detalleCliente.getIdCuenta());
 
 			return preparedStatementInsertar.executeUpdate() == 1;
 
@@ -74,22 +68,19 @@ public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMar
 	}
 
 	@Override
-	public boolean modificar(Cliente cliente) {
+	public boolean modificar(DetalleCliente detalleCliente) {
 		// Evitar java.lang.NullPointerException
-		if (cliente == null) {
+		if (detalleCliente == null) {
 			return false;
 		}
 
-		String sql = "update clientes set nombre = ?, calle = ?, ciudad = ?, id_empleado = ? where id = ?";
+		String sql = "update detalle_clientes set id_cliente = ? where id_cuenta = ?";
 		try {
 			if (preparedStatementModificar == null) {
 				preparedStatementModificar = getConexion().prepareStatement(sql);
 			}
-			preparedStatementModificar.setString(1, cliente.getNombre());
-			preparedStatementModificar.setString(2, cliente.getCalle());
-			preparedStatementModificar.setString(3, cliente.getCiudad());
-			preparedStatementModificar.setInt(4, cliente.getIdEmpleado());
-			preparedStatementModificar.setInt(5, cliente.getId());
+			preparedStatementModificar.setInt(1, detalleCliente.getIdCliente());
+			preparedStatementModificar.setInt(2, detalleCliente.getIdCuenta());
 
 			return preparedStatementModificar.executeUpdate() == 1;
 
@@ -100,18 +91,18 @@ public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMar
 	}
 
 	@Override
-	public boolean eliminar(Cliente cliente) {
+	public boolean eliminar(DetalleCliente detalleCliente) {
 		// Evitar java.lang.NullPointerException
-		if (cliente == null) {
+		if (detalleCliente == null) {
 			return false;
 		}
 
-		String sql = "delete from clientes where id = ?";
+		String sql = "delete from detalle_clientes where id_cuenta= ?";
 		try {
 			if (preparedStatementEliminar == null) {
 				preparedStatementEliminar = getConexion().prepareStatement(sql);
 			}
-			preparedStatementEliminar.setInt(1, cliente.getId());
+			preparedStatementEliminar.setInt(1, detalleCliente.getIdCuenta());
 
 			return preparedStatementEliminar.executeUpdate() == 1;
 
@@ -122,9 +113,9 @@ public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMar
 	}
 
 	@Override
-	public List<Cliente> listar() {
-		List<Cliente> clientes = new ArrayList<Cliente>();
-		String sql = "select id, nombre, calle, ciudad, id_empleado from clientes";
+	public List<DetalleCliente> listar() {
+		List<DetalleCliente> detalleClientes = new ArrayList<DetalleCliente>();
+		String sql = "select id_cuenta, id_cliente from detalle_clientes";
 		try {
 			if (preparedStatementListar == null) {
 				preparedStatementListar = getConexion().prepareStatement(sql);
@@ -133,20 +124,17 @@ public class ImplementacionCliente implements DAO<Cliente, Integer>, ConexionMar
 			ResultSet resultSet = preparedStatementListar.executeQuery();
 			
 			while(resultSet.next()) {
-				Cliente cliente = new Cliente();
-				cliente.setId(resultSet.getInt("id"));
-				cliente.setNombre(resultSet.getString("nombre"));
-				cliente.setCalle(resultSet.getString("calle"));
-				cliente.setCiudad(resultSet.getString("ciudad"));
-				cliente.setIdEmpleado(resultSet.getInt("id_empleado"));
-				clientes.add(cliente);
+				DetalleCliente detalleCliente = new DetalleCliente();
+				detalleCliente.setIdCuenta(resultSet.getInt("id_cuenta"));
+				detalleCliente.setIdCliente(resultSet.getInt("id_cliente"));
+				
+				detalleClientes.add(detalleCliente);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return clientes;
-	
+		return detalleClientes;
 	}
 
 }

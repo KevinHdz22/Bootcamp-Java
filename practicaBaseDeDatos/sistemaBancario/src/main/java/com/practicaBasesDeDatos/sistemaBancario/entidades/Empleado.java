@@ -2,18 +2,19 @@ package com.practicaBasesDeDatos.sistemaBancario.entidades;
 
 import java.util.Date;
 
+
 public class Empleado {
-	int id;
+	Integer id;
 	String nombre;
 	String telefono;
 	Date fechaIngreso;
-	int idJefe;
+	Integer idJefe;
 	
 	public Empleado() {
 		super();
 	}
 
-	public Empleado(int id, String nombre, String telefono, Date fechaIngreso, int idJefe) {
+	public Empleado(Integer id, String nombre, String telefono, Date fechaIngreso, Integer idJefe) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -22,11 +23,11 @@ public class Empleado {
 		this.idJefe = idJefe;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -50,15 +51,15 @@ public class Empleado {
 		return fechaIngreso;
 	}
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setFechaIngreso(Date date) {
+		this.fechaIngreso = date;
 	}
 
-	public int getIdJefe() {
+	public Integer getIdJefe() {
 		return idJefe;
 	}
 
-	public void setIdJefe(int idJefe) {
+	public void setIdJefe(Integer idJefe) {
 		this.idJefe = idJefe;
 	}
 

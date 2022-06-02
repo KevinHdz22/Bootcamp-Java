@@ -1,24 +1,24 @@
 package com.practicaBasesDeDatos.sistemaBancario.entidades;
 
 public class Jefe {
-	int id;
+	Integer id;
 	String nombreSubordinado;
 	
 	public Jefe() {
 		super();
 	}
 
-	public Jefe(int id, String nombreSubordinado) {
+	public Jefe(Integer id, String nombreSubordinado) {
 		super();
 		this.id = id;
 		this.nombreSubordinado = nombreSubordinado;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

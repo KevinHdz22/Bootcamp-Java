@@ -1,8 +1,8 @@
 package com.practicaBasesDeDatos.sistemaBancario.entidades;
 
 public class DetalleCliente {
-	int idCliente;
-	int idCuenta;
+	Integer idCliente;
+	Integer idCuenta;
 	
 	
 	public DetalleCliente() {
@@ -10,29 +10,29 @@ public class DetalleCliente {
 	}
 
 
-	public DetalleCliente(int idCliente, int idCuenta) {
+	public DetalleCliente(Integer idCliente, Integer idCuenta) {
 		super();
 		this.idCliente = idCliente;
 		this.idCuenta = idCuenta;
 	}
 
 
-	public int getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
 
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 
 
-	public int getIdCuenta() {
+	public Integer getIdCuenta() {
 		return idCuenta;
 	}
 
 
-	public void setIdCuenta(int idCuenta) {
+	public void setIdCuenta(Integer idCuenta) {
 		this.idCuenta = idCuenta;
 	}
 

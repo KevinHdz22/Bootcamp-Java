@@ -1,7 +1,7 @@
 package com.practicaBasesDeDatos.sistemaBancario.entidades;
 
 public class Cuenta {
-	int id;
+	Integer id;
 	String tipoDeCuenta;
 	
 	
@@ -10,19 +10,19 @@ public class Cuenta {
 	}
 
 
-	public Cuenta(int id, String tipoDeCuenta) {
+	public Cuenta(Integer id, String tipoDeCuenta) {
 		super();
 		this.id = id;
 		this.tipoDeCuenta = tipoDeCuenta;
 	}
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

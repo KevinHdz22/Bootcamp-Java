@@ -1,17 +1,17 @@
 package com.practicaBasesDeDatos.sistemaBancario.entidades;
 
 public class Cliente {
-	int id;
+	Integer id;
 	String nombre;
 	String calle;
 	String ciudad;
-	int idEmpleado;
+	Integer idEmpleado;
 	
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(int id, String nombre, String calle, String ciudad, int idEmpleado) {
+	public Cliente(Integer id, String nombre, String calle, String ciudad, Integer idEmpleado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -20,11 +20,11 @@ public class Cliente {
 		this.idEmpleado = idEmpleado;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -52,11 +52,11 @@ public class Cliente {
 		this.ciudad = ciudad;
 	}
 
-	public int getIdEmpleado() {
+	public Integer getIdEmpleado() {
 		return idEmpleado;
 	}
 
-	public void setIdEmpleado(int idEmpleado) {
+	public void setIdEmpleado(Integer idEmpleado) {
 		this.idEmpleado = idEmpleado;
 	}
 

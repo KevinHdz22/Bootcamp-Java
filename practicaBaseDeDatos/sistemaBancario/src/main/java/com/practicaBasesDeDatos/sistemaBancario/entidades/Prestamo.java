@@ -3,27 +3,27 @@ package com.practicaBasesDeDatos.sistemaBancario.entidades;
 import java.util.Date;
 
 public class Prestamo {
-	int id;
+	Integer id;
 	Date fechaSolicitud;
-	int idCliente;
+	Integer idCliente;
 	
 	
 	public Prestamo() {
 		super();
 	}
 
-	public Prestamo(int id, Date fechaSolicitud, int idCliente) {
+	public Prestamo(Integer id, Date fechaSolicitud, Integer idCliente) {
 		super();
 		this.id = id;
 		this.fechaSolicitud = fechaSolicitud;
 		this.idCliente = idCliente;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -35,11 +35,11 @@ public class Prestamo {
 		this.fechaSolicitud = fechaSolicitud;
 	}
 
-	public int getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 
