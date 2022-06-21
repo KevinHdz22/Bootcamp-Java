@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <title>Cronometro</title>
+</head>
+
+<body>
+    <section id="cuerpoCronometro" class="cuerpo-cronometro">
+        <div class="contenido-cronometro">
+            <input type="text" id="reloj" placeholder="00:00:00:00" readonly />
+            <br>
+            <button id="boton1" style="display: inline" onclick="iniciarCronometro()"><img class="imagen"
+                    src="images/tocar.png" alt=""></button>
+            <button id="boton2" style="display: none" onclick="pausarCronometro()"><img class="imagen"
+                    src="images/pausa.png" alt=""></button>
+            <button id="boton3" style="display: none" onclick="pararCronometro()"><img class="imagen"
+                    src="images/return.png" alt=""></button>
+            <button id="boton4" style="display: inline" onclick="pausarYBorrarCronometro()"><img class="imagen"
+                    src="images/cuadrado.png" alt=""></button>
+        </div>
+    </section>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
