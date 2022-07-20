@@ -8,11 +8,11 @@ create table if not exists usuarios(
 );
 
 create table if not exists empleados(
-	tipoDocumento char(3) not null,
+	tipoDocumento varchar(10) not null,
 	numeroDocumento varchar(20) not null,
 	nombre varchar(30) not null,
 	apellido varchar(30)not null,
 	edad int,
-	fechaNacimiento date not null,
+	fechaNacimiento varchar(20) not null,
 	primary key(tipoDocumento, numeroDocumento)
 );
